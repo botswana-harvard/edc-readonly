@@ -22,6 +22,7 @@ class TestReadonlyAdminMixin(TestCase):
         self.site = AdminSite()
 
     def test_make_fields_readonly(self):
+        """Test if fields are made read only of a user belongs to the Monitors group."""
         self.request.user = User.objects.create_user('ckgathi', 'ckgathi@gmail.com', 'thabo321')
         group = Group(name="Monitors")
         group.save()                  # save this new group for this example
@@ -30,6 +31,7 @@ class TestReadonlyAdminMixin(TestCase):
         self.assertEqual(sorted(list(ma.get_readonly_fields(self.request))), sorted(['my_first_field', 'my_second_field']))
 
     def test_admin_fields_not_readonly(self):
+        """Test if fields are not read only permissions for a user who does not belong to the Monitors group."""
         self.request.user = User.objects.create_user('thabo', 'thabo@gmail.com', 'thabo321')
         ma = MyModelAdmin(MyModel, self.site)
         self.assertEqual(ma.get_readonly_fields(self.request), [])

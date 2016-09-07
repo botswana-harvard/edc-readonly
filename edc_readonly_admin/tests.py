@@ -35,3 +35,18 @@ class TestReadonlyAdminMixin(TestCase):
         self.request.user = User.objects.create_user('thabo', 'thabo@gmail.com', 'thabo321')
         ma = MyModelAdmin(MyModel, self.site)
         self.assertEqual(ma.get_readonly_fields(self.request), [])
+
+    def test_user_readonly_group(self):
+        """Test if a user belongs to a read only group permissions."""
+        self.request.user = User.objects.create_user('ckgathi', 'ckgathi@gmail.com', 'thabo321')
+        group = Group(name="Monitors")
+        group.save()                  # save this new group for this example
+        self.request.user.groups.add(group)
+        ma = MyModelAdmin(MyModel, self.site)
+        self.assertTrue(ma.readonly_group(self.request))
+
+    def test_user_no_readonly_group(self):
+        """Test if a user belongs to a read only group permissions."""
+        self.request.user = User.objects.create_user('thabo', 'thabo@gmail.com', 'thabo321')
+        ma = MyModelAdmin(MyModel, self.site)
+        self.assertFalse(ma.readonly_group(self.request))

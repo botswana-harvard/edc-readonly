@@ -11,7 +11,7 @@ class MyModelAdmin(ReadOnlyAdminMixin, admin.ModelAdmin):
 admin.site.register(MyModel, MyModelAdmin)
 
 
-class MyOtherModelAdmin(ReadOnlyAdminMixin, admin.ModelAdmin):
+class MyOtherModelAdmin(admin.ModelAdmin):
     fields = ['my_first_field']
 
 admin.site.register(MyOtherModel, MyOtherModelAdmin)

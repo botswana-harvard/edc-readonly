@@ -1,5 +1,6 @@
 from django.apps import apps as django_apps
-from django.contrib import messages
+from django.contrib.auth import get_permission_codename
+# from django.contrib import messages
 
 
 class ReadOnlyAdminMixin:
@@ -23,21 +24,39 @@ class ReadOnlyAdminMixin:
         if self.readonly_group(request):
             for field in self.get_fields(request, obj):
                 readonly_fields.append(field)
-        return list(set(readonly_fields))
+            return list(set(readonly_fields))
+        return self.readonly_fields
 
     def has_add_permission(self, request):
-        return False
+        if self.readonly_group(request):
+            return False
+        else:
+            return True
 
     def has_delete_permission(self, request, obj=None):
-        return False
+        if self.readonly_group(request):
+            return False
+        else:
+            opts = self.opts
+            codename = get_permission_codename('delete', opts)
+            return request.user.has_perm("%s.%s" % (opts.app_label, codename))
 
     def save_model(self, request, obj, form, change):
         if self.readonly_group(request):
-            messages.add_message(request, messages.INFO, 'Read only permissions for user {}'.format(request.user))
-        super(ReadOnlyAdminMixin, self).save_model(request, obj, form, change)
+            pass
+        else:
+            super(ReadOnlyAdminMixin, self).save_model(request, obj, form, change)
 
     def delete_model(self, request, obj):
-        pass
+        if self.readonly_group(request):
+            pass
+        else:
+            obj.delete()
 
     def save_related(self, request, form, formsets, change):
-        pass
+        if self.readonly_group(request):
+            pass
+        else:
+            form.save_m2m()
+            for formset in formsets:
+                self.save_formset(request, form, formset, change=change)

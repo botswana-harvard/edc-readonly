@@ -27,14 +27,15 @@ class TestReadonlyAdminMixin(TestCase):
         group = Group(name="Monitors")
         group.save()                  # save this new group for this example
         self.request.user.groups.add(group)
-        ma = MyModelAdmin(MyModel, self.site)
-        self.assertEqual(sorted(list(ma.get_readonly_fields(self.request))), sorted(['my_first_field', 'my_second_field']))
+        custom_model_admin = MyModelAdmin(MyModel, self.site)
+        self.assertEqual(
+            sorted(list(custom_model_admin.get_readonly_fields(self.request))),
+            sorted(['my_first_field', 'my_second_field', 'my_third_field']))
 
-    def test_admin_fields_not_readonly(self):
-        """Test if fields are not read only permissions for a user who does not belong to the Monitors group."""
+    def test_admin_fields_get_fields(self):
         self.request.user = User.objects.create_user('thabo', 'thabo@gmail.com', 'thabo321')
-        ma = MyModelAdmin(MyModel, self.site)
-        self.assertEqual(ma.get_readonly_fields(self.request), [])
+        custom_model_admin = MyModelAdmin(MyModel, self.site)
+        self.assertEqual(custom_model_admin.get_readonly_fields(self.request), ['my_third_field'])
 
     def test_user_readonly_group(self):
         """Test if a user belongs to a read only group permissions."""
@@ -42,11 +43,11 @@ class TestReadonlyAdminMixin(TestCase):
         group = Group(name="Monitors")
         group.save()                  # save this new group for this example
         self.request.user.groups.add(group)
-        ma = MyModelAdmin(MyModel, self.site)
-        self.assertTrue(ma.readonly_group(self.request))
+        custom_model_admin = MyModelAdmin(MyModel, self.site)
+        self.assertTrue(custom_model_admin.readonly_group(self.request))
 
     def test_user_no_readonly_group(self):
         """Test if a user belongs to a read only group permissions."""
         self.request.user = User.objects.create_user('thabo', 'thabo@gmail.com', 'thabo321')
-        ma = MyModelAdmin(MyModel, self.site)
-        self.assertFalse(ma.readonly_group(self.request))
+        custom_model_admin = MyModelAdmin(MyModel, self.site)
+        self.assertFalse(custom_model_admin.readonly_group(self.request))

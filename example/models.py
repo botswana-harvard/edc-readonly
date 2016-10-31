@@ -1,7 +1,8 @@
 from django.db import models
+from edc_readonly.read_model_mixin import ReadOnlyModelMixin
 
 
-class MyModel (models.Model):
+class MyModel (ReadOnlyModelMixin, models.Model):
 
     my_first_field = models.CharField(
         verbose_name='How did you break you leg?',
@@ -33,7 +34,7 @@ class MyModel (models.Model):
         verbose_name_plural = "My Model"
 
 
-class MyOtherModel (models.Model):
+class MyOtherModel (ReadOnlyModelMixin, models.Model):
 
     my_first_field = models.CharField(
         verbose_name='This is just a test field.',

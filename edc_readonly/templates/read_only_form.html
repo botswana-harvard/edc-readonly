@@ -1,0 +1,40 @@
+{% extends 'edc_base/base.html' %}
+
+  {% load staticfiles %}
+  {% load crispy_forms_tags %}
+
+  {% block extra-scripts %}
+    <script type="text/javascript" src="{% static '' %}"></script>
+  {% endblock extra-scripts %}
+
+{% block main %}
+<div class="container">
+{% block read_only_form %}
+
+	<div class="panel-group">
+    	<div class="panel panel-success">
+          <div class="panel-heading clearfix">{{ model_name }} Form<span class="pull-right"><a href="#" role="button" class="btn btn-sm btn-primary">Close</a></span></div>
+      <div class="panel-body">
+
+		{# Include the hidden fields #}
+		{% for hidden in form.hidden_fields %}
+		{{ hidden }}
+		{% endfor %}
+		{# Include the visible fields #}
+		{% for field in form.visible_fields %}
+		    <div class="fieldWrapper">
+		        {{ field.errors }}
+		        <br />
+		        {{ field.label_tag }}
+		        <br />
+		         <br />
+		        {{ field }}
+		        <br />
+		    </div>
+		{% endfor %}
+	      </div>
+	    </div>
+	  </div>
+{% endblock read_only_form %}
+</div>
+{% endblock main %}

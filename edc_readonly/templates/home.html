@@ -1,0 +1,17 @@
+{% extends 'edc_base/base.html' %}
+
+  {% load staticfiles %}
+  {% load crispy_forms_tags %}
+
+  {% block extra-scripts %}
+    <script type="text/javascript" src="{% static '' %}"></script>
+  {% endblock extra-scripts %}
+
+{% block main %}
+<div class="container">
+{{my_model_pk}} *** model pk
+{{app_label}} *** app_label
+{{my_model}} *** my_model
+<a href="{% url 'read_only_form_url' app_label my_model my_model_pk %}?form1={{formm}}">browse data</a>
+</div>
+{% endblock main %}

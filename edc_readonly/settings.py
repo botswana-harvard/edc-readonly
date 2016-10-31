@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+project_name = 'EDC Read Only'
+
+
+PROJECT_TITLE = 'Ba Namotswe'
 
 # Application definition
 
@@ -37,7 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'edc_readonly_admin',
+    'edc_base.apps.AppConfig',
+    'crispy_forms',
+#     'edc_readonly.apps.EdcProtocolAppConfig',
+    'edc_readonly.apps.AppConfig',
     'example'
 ]
 
@@ -51,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'edc_readonly_admin.urls'
+ROOT_URLCONF = 'edc_readonly.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'edc_readonly_admin.wsgi.application'
+WSGI_APPLICATION = 'edc_readonly.wsgi.application'
 
 
 # Database
@@ -120,3 +127,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'edc_readonly', 'static')
+GIT_DIR = BASE_DIR
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+KEY_PATH = os.path.join(BASE_DIR, 'crypto_fields')
+ETC_DIR = os.path.join(BASE_DIR, 'etc')
+
+STUDY_SITE = '10'

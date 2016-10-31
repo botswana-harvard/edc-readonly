@@ -1,1 +1,16 @@
-Django
+Django==1.10.1
+django-braces==1.10.0
+django-crispy-forms==1.6.1
+django-extensions==1.7.4
+django-js-reverse==0.7.2
+django-revision==0.1.10
+django-simple-history==1.8.1
+edc-base==0.1.13.dev0
+edc-protocol==0.1.0.dev0
+gitdb2==2.0.0
+GitPython==2.1.0
+python-dateutil==2.5.3
+pytz==2016.7
+six==1.10.0
+smmap2==2.0.1
+Unipath==1.1

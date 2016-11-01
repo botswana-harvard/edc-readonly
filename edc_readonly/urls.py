@@ -23,7 +23,7 @@ from .views import ReadOnlyView, HomeView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^readonly/(?P<app_label>[-\w]+)/(?P<model_name>[-\w]+)/(?P<pk>[0-9a-z-]+)$', ReadOnlyView.as_view(), name='read_only_form_url'),
+    url(r'^readonly/(?P<app_label>[-\w]+)/(?P<model_name>[-\w]+)/(?P<form_module>[a-z.a-z]+)/(?P<form_class_str>[-\w]+)/(?P<pk>[0-9a-z-]+)$', ReadOnlyView.as_view(), name='read_only_form_url'),
     url(r'login', LoginView.as_view(), name='login_url'),
     url(r'logout', LogoutView.as_view(pattern_name='login_url'), name='logout_url'),
     url(r'^edc/', include('edc_base.urls', namespace='edc-base')),

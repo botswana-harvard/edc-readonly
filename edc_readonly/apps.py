@@ -13,10 +13,3 @@ class AppConfig(DjangoAppConfig):
 class EdcBaseAppConfig(EdcBaseAppConfigParent):
     institution = 'Botswana Harvard AIDS Institute Partnership'
     project_name = 'EDC Read Only'
-
-
-# class EdcProtocolAppConfig(EdcProtocolAppConfigParent):
-#     protocol = 'BHP000'
-#     protocol_number = '000'
-#     protocol_name = 'edc readonly'
-#     protocol_title = 'My Protocol of Many Things'

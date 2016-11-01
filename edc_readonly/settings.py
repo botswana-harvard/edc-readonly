@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 project_name = 'EDC Read Only'
 
 
-PROJECT_TITLE = 'Ba Namotswe'
+PROJECT_TITLE = 'EDC Read Only'
 
 # Application definition
 
@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'edc_base.apps.AppConfig',
     'crispy_forms',
-#     'edc_readonly.apps.EdcProtocolAppConfig',
     'edc_readonly.apps.AppConfig',
     'example'
 ]

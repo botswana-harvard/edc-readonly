@@ -6,7 +6,6 @@ from django.shortcuts import render
 from edc_base.view_mixins import EdcBaseViewMixin
 
 from example.models import MyModel
-from example.forms import MyModelForm
 
 
 class ReadOnlyView(EdcBaseViewMixin, TemplateView, FormView):
@@ -15,18 +14,28 @@ class ReadOnlyView(EdcBaseViewMixin, TemplateView, FormView):
         self.context = {}
         self.template_name = 'read_only_form.html'
 
+    def class_for_name(self, module_name, class_name):
+        # load the module, will raise ImportError if module cannot be loaded
+        m = __import__(module_name, globals(), locals(), class_name)
+        # get the class, will raise AttributeError if class cannot be found
+        c = getattr(m, class_name)
+        return c
+
     def get(self, request, *args, **kwargs):
         model_instance = None
         model_pk = kwargs.get('pk')
         app_label = kwargs.get('app_label')
         model_name = kwargs.get('model_name')
+        form_module = kwargs.get('form_module')
+        form_class_str = kwargs.get('form_class_str')
         mv = app_label + '.' + model_name
         model = django_apps.get_model(mv)
+        from_class = self.class_for_name(form_module, form_class_str)
         try:
             model_instance = model.objects.get(pk=model_pk)
         except model.DoesNotExist:
             model_instance = None
-        form = MyModelForm(model_instance.__dict__)
+        form = from_class(model_instance.__dict__)
         readonly_fields = form.fields
         for field in (field for name, field in form.fields.items() if name in readonly_fields):
             field.widget.attrs['readonly'] = 'true'
@@ -54,13 +63,19 @@ class HomeView(EdcBaseViewMixin, TemplateView, FormView):
         self.template_name = 'home.html'
 
     def get(self, request, *args, **kwargs):
-        my_model = MyModel.objects.all()[0]
+        my_model = None
+        try:
+            my_model = MyModel.objects.get(id=2)
+            print(my_model.__dict__)
+        except:
+            MyModel.objects.create(id=2, my_first_field='i was playing soccer', my_second_field='no its the third time')
         self.context.update({
             'my_model': my_model.__class__.__name__,
             'app_label': my_model._meta.app_label,
             'project_name': 'EDC Read Only',
             'my_model_pk': my_model.pk,
-            'formm': 'MyModelForm'
+            'form_class_str': 'MyModelForm',
+            'form_module': "example.forms"
         })
         return render(request, self.template_name, self.context)
 

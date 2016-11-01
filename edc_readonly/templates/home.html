@@ -9,9 +9,13 @@
 
 {% block main %}
 <div class="container">
-{{my_model_pk}} *** model pk
-{{app_label}} *** app_label
-{{my_model}} *** my_model
-<a href="{% url 'read_only_form_url' app_label my_model my_model_pk %}?form1={{formm}}">browse data</a>
+<div class="panel-group">
+   	<div class="panel panel-success">
+         <div class="panel-heading clearfix">Test Page for EDC Read Only</div>
+     <div class="panel-body">
+<a href="{% url 'read_only_form_url' app_label my_model form_module form_class_str my_model_pk %}">browse data</a>
+</div>
+</div>
+</div>
 </div>
 {% endblock main %}

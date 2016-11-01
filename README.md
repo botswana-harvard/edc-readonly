@@ -4,7 +4,7 @@ View forms in read only mode.
 
 ##Installation
 
-    pip install git+https://github.com/botswana-harvard/edc-readonly-admin.git
+    pip install git+https://github.com/botswana-harvard/edc-readonly.git
     
 add to settings:
     

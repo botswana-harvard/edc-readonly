@@ -10,7 +10,7 @@ add to settings:
     
     INSTALLED_APPS = [
     ...
-    'edc_readonly_admin.apps.AppConfig',
+    'edc_readonly.apps.AppConfig',
     ...
     ]
     

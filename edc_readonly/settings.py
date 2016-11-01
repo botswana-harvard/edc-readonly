@@ -27,8 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-project_name = 'EDC Read Only'
-
 
 PROJECT_TITLE = 'EDC Read Only'
 
@@ -41,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'edc_base.apps.AppConfig',
     'crispy_forms',
     'edc_readonly.apps.AppConfig',
+    'edc_readonly.apps.EdcBaseAppConfig',
     'example'
 ]
 

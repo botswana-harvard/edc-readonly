@@ -7,7 +7,6 @@ class AppConfig(DjangoAppConfig):
     name = 'edc_readonly'
     model_attrs = None
     institution = 'Botswana Harvard AIDS Institute Partnership'
-    project_name = 'EDC Read Only'
 
 
 class EdcBaseAppConfig(EdcBaseAppConfigParent):

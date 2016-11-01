@@ -14,6 +14,13 @@ add to settings:
     ...
     ]
     
+    urlpatterns = [
+        ...
+        url(r'^edc-readonly/', include('edc_readonly.urls')),
+        ...
+	]
+    
+    url(r'^edc-readonly/', include('edc_readonly.urls')),
 ## Usage
 
 For a form that is to be shown on read only mode the following parameters are needed, `<app_label>`, `<model_name>`, `<form_module>`, `<form_class_str>`, `<pk>`.
